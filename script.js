@@ -5,7 +5,6 @@ let rollback = 15;
 let fullPrice = 35000;
 let adaptive = true;
 
-// alert("Hello JavaScript!");
 console.log("Мой первый log");
 console.log(typeof title);
 console.log(typeof fullPrice);
