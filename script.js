@@ -5,17 +5,6 @@ let rollback = 15;
 let fullPrice = 35000;
 let adaptive = true;
 
-// alert("Hello JavaScript!");
-console.log("Мой первый log");
-console.log(typeof title);
-console.log(typeof fullPrice);
-console.log(typeof adaptive);
-console.log(screens.length);
-console.log("Стоимость верстки экранов " + screenPrice + " рублей/ долларов/гривен/юани");
-console.log("Стоимость разработки сайта " + fullPrice + " рублей/ долларов/гривен/юани");
-console.log(screens.toLocaleLowerCase().split(','));
-console.log("Процент отката посреднику за работу: " + (fullPrice * (rollback / 100)));
-
 title = prompt("Как называется ваш проект?");
 screens = prompt(
   "Какие типы экранов нужно разработать?",
@@ -28,12 +17,8 @@ const service1 = prompt("Какой дополнительный тип услу
 const servicePrice1 = prompt("Сколько это будет стоить?");
 const service2 = prompt("Какой дополнительный тип услуги нужен?");
 const servicePrice2 = prompt("Сколько это будет стоить?");
-
-fullPrice = parseInt(screenPrice) + parseInt(servicePrice1) + parseInt(servicePrice2);
-
 const servicePercentPrice = fullPrice - Math.ceil(fullPrice * (rollback / 100));
-
-console.log(servicePercentPrice);
+fullPrice = parseInt(screenPrice) + parseInt(servicePrice1) + parseInt(servicePrice2);
 
 if(fullPrice > 30000) {
   console.log("Даем скидку в 10%");
@@ -44,3 +29,15 @@ if(fullPrice > 30000) {
 } else {
   console.log("Что то пошло не так");
 }
+
+// alert("Hello JavaScript!");
+console.log("Мой первый log");
+console.log(typeof title);
+console.log(typeof fullPrice);
+console.log(typeof adaptive);
+console.log(screens.length);
+console.log("Стоимость верстки экранов " + screenPrice + " рублей/ долларов/гривен/юани");
+console.log("Стоимость разработки сайта " + fullPrice + " рублей/ долларов/гривен/юани");
+console.log(screens.toLocaleLowerCase().split(','));
+console.log("Процент отката посреднику за работу: " + (fullPrice * (rollback / 100)));
+console.log(servicePercentPrice);
