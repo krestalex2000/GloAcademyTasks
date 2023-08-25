@@ -1,34 +1,33 @@
-let title;
-let screens;
-let screenPrice;
-let adaptive;
-let rollback = 15;
-let allServicePrices;
-let service1;
-let service2;
-let fullPrice;
-let servicePercentPrice;
+"use strict"
+
+const appData = {
+  title: "",
+  screens: "",
+  screenPrice: 0,
+  adaptive: true,
+  rollback: 15,
+  allServicePrices: 0,
+  fullPrice: 0,
+  servicePercentPrice: 0,
+  service1: "",
+  service2: "",
+  asking: function() {
+    this.title = prompt("Как называется ваш проект?", "Калькулятор");
+    this.screens = prompt(
+      "Какие типы экранов нужно разработать?",
+      "Простые, Сложные, Интерактивные"
+    );
+
+    do {
+      this.screenPrice = prompt("Сколько будет стоить данная работа?");
+    } while (!isNumber(this.screenPrice));
+    
+    this.adaptive = confirm("Нужен ли адаптив на сайте?");
+  }
+}
 
 const isNumber = function(num) {
   return !isNaN(parseFloat(num) && isFinite(num))
-}
-
-const asking = function() {
-  title = prompt("Как называется ваш проект?", "Калькулятор");
-  screens = prompt(
-    "Какие типы экранов нужно разработать?",
-    "Простые, Сложные, Интерактивные"
-  );
-
-  do {
-    screenPrice = prompt("Сколько будет стоить данная работа?");
-  } while (!isNumber(screenPrice));
-  
-  adaptive = confirm("Нужен ли адаптив на сайте?");
-}
-
-const showTypeOf = function(variable) {
-  console.log(variable, typeof variable);
 }
 
 const getRollbackMessage = function(price) {
@@ -45,8 +44,9 @@ const getRollbackMessage = function(price) {
 
 const getAllServicePrices = function () {
   let sum = 0;
-  let askForPrice;
+
   for (let i = 0; i < 2; i++) {
+    let askForPrice = 0;
 
     if (i === 0) {
       service1 = prompt("Какой дополнительный тип услуги нужен?");
@@ -82,16 +82,3 @@ allServicePrices = getAllServicePrices();
 fullPrice = getFullPrice(screenPrice, allServicePrices);
 servicePercentPrice = getServicePercentPrices(fullPrice, servicePercentPrice);
 
-showTypeOf(title);
-showTypeOf(fullPrice);
-showTypeOf(adaptive);
-
-console.log("allServicePrices", allServicePrices);
-console.log(getRollbackMessage(fullPrice));
-console.log(
-  "Стоимость верстки экранов " + screenPrice + " рублей/ долларов/гривен/юани"
-  );
-console.log(
-  "Стоимость разработки сайта " + fullPrice + " рублей/ долларов/гривен/юани"
-);
-console.log(servicePercentPrice);
