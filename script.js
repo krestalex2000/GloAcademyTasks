@@ -11,74 +11,92 @@ const appData = {
   servicePercentPrice: 0,
   service1: "",
   service2: "",
-  asking: function() {
-    this.title = prompt("Как называется ваш проект?", "Калькулятор");
-    this.screens = prompt(
+
+  asking: function () {
+    appData.title = prompt("Как называется ваш проект?", "Калькулятор");
+    appData.screens = prompt(
       "Какие типы экранов нужно разработать?",
       "Простые, Сложные, Интерактивные"
     );
 
     do {
-      this.screenPrice = prompt("Сколько будет стоить данная работа?");
-    } while (!isNumber(this.screenPrice));
-    
-    this.adaptive = confirm("Нужен ли адаптив на сайте?");
-  }
-}
+      appData.screenPrice = prompt("Сколько будет стоить данная работа?");
+    } while (!appData.isNumber(appData.screenPrice));
 
-const isNumber = function(num) {
-  return !isNaN(parseFloat(num) && isFinite(num))
-}
+    appData.adaptive = confirm("Нужен ли адаптив на сайте?");
+  },
 
-const getRollbackMessage = function(price) {
-  if (price > 30000) {
-    return "Даем скидку в 10%";
-  } else if (price >= 15000 && price <= 30000) {
-    return "Даем скидку в 5%";
-  } else if (price < 15000 && price >= 0) {
-    return "Скидка не предусмотрена";
-  } else {
-    return "Что то пошло не так";
-  }
-}
+  isNumber: function (num) {
+    return !isNaN(parseFloat(num) && isFinite(num));
+  },
 
-const getAllServicePrices = function () {
-  let sum = 0;
+  getRollbackMessage: function (price) {
+    if (price > 30000) {
+      return "Даем скидку в 10%";
+    } else if (price >= 15000 && price <= 30000) {
+      return "Даем скидку в 5%";
+    } else if (price < 15000 && price >= 0) {
+      return "Скидка не предусмотрена";
+    } else {
+      return "Что то пошло не так";
+    }
+  },
 
-  for (let i = 0; i < 2; i++) {
-    let askForPrice = 0;
+  getAllServicePrices: function () {
+    let sum = 0;
 
-    if (i === 0) {
-      service1 = prompt("Какой дополнительный тип услуги нужен?");
-    } else if (i === 1) {
-      service2 = prompt("Какой дополнительный тип услуги нужен?");
+    for (let i = 0; i < 2; i++) {
+      let askForPrice = 0;
+
+      if (i === 0) {
+        appData.service1 = prompt("Какой дополнительный тип услуги нужен?");
+      } else if (i === 1) {
+        appData.service2 = prompt("Какой дополнительный тип услуги нужен?");
+      }
+
+      do {
+        askForPrice = prompt("Сколько это будет стоить?");
+      } while (!appData.isNumber(askForPrice));
+
+      sum += +askForPrice;
     }
 
-    do {
-      askForPrice = prompt("Сколько это будет стоить?");
-    } while (!isNumber(askForPrice))
+    return sum;
+  },
 
-    sum += +askForPrice;
+  getFullPrice: function (screenPrice, allServicePrices) {
+    return parseInt(screenPrice) + parseInt(allServicePrices);
+  },
+
+  getTitle: function (title) {
+    return title.trim()[0].toUpperCase() + title.trim().slice(1).toLowerCase();
+  },
+
+  getServicePercentPrices: function () {
+    return appData.fullPrice - appData.fullPrice * (appData.rollback / 100);
+  }, 
+
+  logger: function () {
+    for (this.item in appData) {
+      console.log(this.item);
+    }
+  },
+
+  start: function () {
+    appData.asking();
+    appData.allServicePrices = appData.getAllServicePrices();
+    appData.fullPrice = appData.getFullPrice(
+      appData.screenPrice,
+      appData.allServicePrices
+    );
+    appData.servicePercentPrice = appData.getServicePercentPrices(
+      appData.fullPrice,
+      appData.servicePercentPrice
+    );
+    appData.logger();
   }
-
-  return sum
 };
 
+appData.start()
 
-function getFullPrice(screenPrice, allServicePrices) {
-  return parseInt(screenPrice) + parseInt(allServicePrices);
-}
-
-const getTitle = function (title) {
-  return title.trim()[0].toUpperCase() + title.trim().slice(1).toLowerCase();
-};
-
-const getServicePercentPrices = function () {
-  return fullPrice - (fullPrice * (rollback / 100))
-};
-
-asking();
-allServicePrices = getAllServicePrices();
-fullPrice = getFullPrice(screenPrice, allServicePrices);
-servicePercentPrice = getServicePercentPrices(fullPrice, servicePercentPrice);
 
