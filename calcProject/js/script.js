@@ -49,7 +49,7 @@ const appData = {
     if (selects.every(function (select) {
         return select.selectedIndex !== 0;
       })
-     && inputs.every(function (input) {
+      && inputs.every(function (input) {
         return input.value.trim() !== "";
       })) {
         startBtn.diabled = false;
@@ -76,6 +76,8 @@ const appData = {
     const cloneScreen = screens[0].cloneNode(true);
 
     screens[screens.length - 1].after(cloneScreen);
+
+    appData.isButtonDisabled();
   },
 
   addScreens: function () {
