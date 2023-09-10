@@ -32,5 +32,5 @@ const DomElement = function(selector, height, width, bg, fontSize, text) {
   }
 }
 
-const newElement = new DomElement('#paragraph', 50, 400, 'cian', 36, 'Hello World')
+const newElement = new DomElement('#paragraph', 50, 400, 'yellow', 36, 'Hello World')
 
